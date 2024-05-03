@@ -20,8 +20,8 @@ builder.Host.UseSerilog((context, configuration) => {
 builder.Services.AddControllers();
 
 // Retrieve the Application Name from appsettings.json depending on the environment
-var appName = builder.Configuration["ApplicationName"] ?? "Default API Name";
-Console.WriteLine($"Application Name: {builder.Configuration["ApplicationName"]}");
+var appName = builder.Configuration["ApiName"] ?? "Default API Name";
+Console.WriteLine($"Application Name: {builder.Configuration["ApiName"]}");
 
 // Configuring Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
