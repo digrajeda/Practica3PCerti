@@ -29,14 +29,32 @@ namespace ClinicAPI
         public List<Patient> LoadPatients()
         {
             var patients = new List<Patient>();
-            using (var reader = new StreamReader(_filePath))
+            try
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                using (var reader = new StreamReader(_filePath))
                 {
-                    var parts = line.Split(',');
-                    patients.Add(new Patient { Name = parts[0], LastName = parts[1], CI = parts[2], BloodGroup = parts[3] });
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split(',');
+                        if (parts.Length >= 5)
+                        {
+                            patients.Add(new Patient
+                            {
+                                Name = parts[0],
+                                LastName = parts[1],
+                                CI = parts[2],
+                                BloodGroup = parts[3],
+                                PatientCode = parts[4]  // Cargar el PatientCode
+                            });
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception
+                throw new Exception("Failed to load patients", ex);
             }
             return patients;
         }
@@ -47,7 +65,7 @@ namespace ClinicAPI
             {
                 foreach (var patient in patients)
                 {
-                    writer.WriteLine($"{patient.Name},{patient.LastName},{patient.CI},{patient.BloodGroup}");
+                    writer.WriteLine($"{patient.Name},{patient.LastName},{patient.CI},{patient.BloodGroup},{patient.PatientCode}");
                 }
             }
         }
