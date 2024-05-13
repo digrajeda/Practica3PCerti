@@ -10,7 +10,8 @@ namespace PatientManager
     {
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string CI { get; set; } // Cédula de Identidad como identificador único
-        public string BloodGroup { get; set; } // Grupo sanguíneo asignado aleatoriamente
+        public string CI { get; set; }
+        public string BloodGroup { get; set; }
+        public string PatientCode { get; set; } // Este campo se actualizará después de recibir el código de Practice 3
     }
 }

@@ -19,9 +19,16 @@ builder.Host.UseSerilog((context, configuration) => {
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Adding HttpClient services
+builder.Services.AddHttpClient();
+
+// Registra PatientFileRepository y PatientCodeService como scoped services
+builder.Services.AddScoped<PatientFileRepository>();
+builder.Services.AddScoped<PatientCodeService>();
+
 // Retrieve the Application Name from appsettings.json depending on the environment
-var appName = builder.Configuration["ApplicationName"] ?? "Default API Name";
-Console.WriteLine($"Application Name: {builder.Configuration["ApplicationName"]}");
+var appName = builder.Configuration["ApiName"] ?? "Default API Name";
+Console.WriteLine($"Application Name: {builder.Configuration["ApiName"]}");
 
 // Configuring Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
